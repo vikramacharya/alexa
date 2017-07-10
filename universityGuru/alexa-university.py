@@ -15,16 +15,18 @@ def new_game():
 @ask.intent('UniversityNewsIntent', mapping={'name': 'name', 'country': 'country'})
 def university_app(name,country):
     try:
-        university_title_list = UniversityNews().main(name, country)
+        university_title_list = UniversityNews().get_university(name, country)
     except Exception as e:
         university_title_list = []
 
     if not university_title_list:
         return statement('Sorry. Could not find any update for %s in %s' % name % country)
-    speech = ''
+    speech = '{} records found'.format(len(university_title_list))
+    
     for title in university_title_list:
-        title, source = title.rsplit('-', 1)
-        speech += 'According to %s %s.' % (source, title)
+        university_name = title.get('name')
+        university_domain = title.get('web_page')
+        speech += 'The domain for {} is {}.'.format(university_name,university_domain)
     return statement(speech)
 
 
