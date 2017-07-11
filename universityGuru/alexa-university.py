@@ -9,7 +9,7 @@ ask = Ask(app, "/")
 @ask.launch
 def new_game():
     session.attributes['last_intent'] = 'Launch'
-    return question('You can get the university detail by name of country. Which PNR will it be ?')
+    return question('You can get the university domain detail by name of university and country. Tell me the name of University and Country.')
 
 
 @ask.intent('UniversityNewsIntent', mapping={'name': 'name', 'country': 'country'})
@@ -20,7 +20,7 @@ def university_app(name,country):
         university_title_list = []
 
     if not university_title_list:
-        return statement('Sorry. Could not find any update for %s in %s' % name % country)
+        return statement('Sorry. Could not find any details for %s in %s' % name % country)
     speech = '{} records found'.format(len(university_title_list))
     
     for title in university_title_list:
@@ -33,9 +33,10 @@ def university_app(name,country):
 @ask.intent('AMAZON.HelpIntent')
 def get_help():
     if session.attributes.get('last_intent') == 'Launch':
-        return question('I can provide you with the latest status for any railway PNR you ask me about. '
-                        'Just tell me the PNR of the railway and i will read the status to you. '
-                        'So which pnr do you want to know about ?')
+        return question('I can provide you with the domain detail for the given university of provided country. '
+                        'Just tell me the name of the university along with country and '
+						'i will read the domain detail to you. '
+						'So which University you want to know about ?')
 
 
 @ask.intent('AMAZON.CancelIntent')
