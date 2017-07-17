@@ -35,7 +35,7 @@ def get_help():
     if session.attributes.get('last_intent') == 'Launch':
         return question('I can provide you with the domain detail for the given university of provided country. '
                         'Just tell me the name of the university along with country and '
-						'i will read the domain detail to you. '
+						'i will read the website detail to you. '
 						'So which University you want to know about ?')
 
 
