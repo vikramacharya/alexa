@@ -13,25 +13,38 @@ def new_game():
 		'You can get the name and atomic number of the element by its symbol. Tell me the the symbol.')
 
 
-@ask.intent('PeriodicIntent', mapping={'name': 'name'})
-def periodic_app(name):
+@ask.intent('PeriodicIntent', mapping={'symbol_name': 'symbol_name'})
+def periodic_app(symbol_name):
+	symbol_name = symbol_name.title()
 	try:
-		periodic_title_list = PeriodicTable().get_Element(name)
+		periodic_title_list = PeriodicTable().get_Element(symbol_name)
 	except Exception as e:
 		periodic_title_list = []
 	
 	if not periodic_title_list:
-		return statement('Sorry. Could not find any details for %s' % name)
+		return statement('Sorry. Could not find any details for %s' % symbol_name)
 	
-	element_data = periodic_title_list['names'][name]
+	element_data = periodic_title_list['names']
+	print(element_data)
+	print(symbol_name)
+	symbol = element_data.get(symbol_name)
+	print(symbol)
+	
 	speech = ''
-	if element_data == 'Invalid element!':
-		speech += '{} is Invalid element!'.format(name)
+	if symbol == 'Invalid element!':
+		speech += '{} is Invalid element!'.format(symbol_name)
 	else:
-		atomic_data = periodic_title_list['numbers'][name]['atomic']
-		# print(atomic_data)
-		speech += 'The element name for {} is {} and its atomic number is {}.'.format(name, element_data,
-																					atomic_data)
+		atomic_data = periodic_title_list['numbers']
+		print(atomic_data)
+		atomic_data_value = atomic_data.get(symbol_name)
+		print(atomic_data_value)
+		if atomic_data_value:
+			atomic_number = atomic_data_value.get('atomic')
+			print(atomic_number)
+			speech += 'The element name for {} is {} and its atomic number is {}.'.format(symbol_name, symbol, atomic_number)
+		else:
+			speech += '{} is Invalid element!'.format(symbol_name)
+			
 	return statement(speech)
 
 
@@ -56,3 +69,7 @@ def stop_app():
 
 if __name__ == '__main__':
 	app.run(debug=True)
+
+# strin = 'O'
+# output = periodic_app(strin)
+# print(output)
