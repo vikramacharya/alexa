@@ -24,11 +24,11 @@ def university_app(university_name, place):
 	
 	if not university_title_list:
 		return statement('Sorry. Could not find any details for %s in %s' % (university_name, place))
-	speech = '{} records found'.format(len(university_title_list))
+	speech = '{} records found. '.format(len(university_title_list))
 	
 	for title in university_title_list:
 		university_name = title.get('name')
-		university_domain = title.get('web_page')
+		university_domain = title.get('domain')
 		speech += 'The domain for {} is {}.'.format(university_name, university_domain)
 	return statement(speech)
 
