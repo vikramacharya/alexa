@@ -15,8 +15,7 @@ def new_game():
 
 @ask.intent('UniversityNewsIntent', mapping={'university_name': 'university_name', 'place': 'place'})
 def university_app(university_name, place):
-	print
-	university_name, place
+
 	try:
 		university_title_list = UniversityNews().get_university(university_name, place)
 	except Exception as e:

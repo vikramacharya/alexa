@@ -12,3 +12,4 @@ class UniversityNews(object):
         url = 'http://universities.hipolabs.com/search?name={}&country={}'.format(university_name, country)
         response = requests.get(url)
         return response.json()
+
