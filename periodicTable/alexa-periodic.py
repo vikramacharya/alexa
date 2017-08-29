@@ -36,7 +36,7 @@ def periodic_app(symbol_name):
 	else:
 		atomic_data = periodic_title_list['numbers']
 		print(atomic_data)
-		atomic_data_value = atomic_data.get(symbol_name)
+		atomic_data_value = atomic_data.get(symbol_name,{})
 		print(atomic_data_value)
 		if atomic_data_value:
 			atomic_number = atomic_data_value.get('atomic')
