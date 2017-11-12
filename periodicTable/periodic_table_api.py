@@ -8,7 +8,7 @@ class PeriodicTable(object):
         pass
 
     @staticmethod
-    def get_Element(symbol_name):
+    def get_element(symbol_name):
 		url = 'http://54.172.80.183/api/pt.php?mode=names,numbers&elements={}'.format(symbol_name)
 		response = requests.get(url)
 		return response.json()

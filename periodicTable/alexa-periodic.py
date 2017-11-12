@@ -15,9 +15,15 @@ def new_game():
 
 @ask.intent('PeriodicIntent', mapping={'symbol_name': 'symbol_name'})
 def periodic_app(symbol_name):
-	symbol_name = symbol_name.title()
+	
 	try:
-		periodic_title_list = PeriodicTable().get_Element(symbol_name)
+		print('symbol provided : {} '.format(symbol_name))
+		if not symbol_name:
+			return question("You haven't provided any symbol yet. Please provide a symbol name.")
+		symbol_name = symbol_name.title()
+		print('symbol provided : {} '.format(symbol_name))
+		periodic_title_list = PeriodicTable().get_element(symbol_name)
+		print(periodic_title_list)
 	except Exception as e:
 		periodic_title_list = []
 	
@@ -25,25 +31,20 @@ def periodic_app(symbol_name):
 		return statement('Sorry. Could not find any details for %s' % symbol_name)
 	
 	element_data = periodic_title_list['names']
-	print(element_data)
-	print(symbol_name)
 	symbol = element_data.get(symbol_name)
-	print(symbol)
 	
 	speech = ''
 	if symbol == 'Invalid element!':
-		speech += '{} is Invalid element!'.format(symbol_name)
+		speech += 'Sorry! No such element found'
 	else:
 		atomic_data = periodic_title_list['numbers']
-		print(atomic_data)
 		atomic_data_value = atomic_data.get(symbol_name,{})
-		print(atomic_data_value)
 		if atomic_data_value:
 			atomic_number = atomic_data_value.get('atomic')
 			print(atomic_number)
 			speech += 'The element name for {} is {} and its atomic number is {}.'.format(symbol_name, symbol, atomic_number)
 		else:
-			speech += '{} is Invalid element!'.format(symbol_name)
+			speech += 'Sorry! No such element found'
 			
 	return statement(speech)
 
@@ -69,7 +70,3 @@ def stop_app():
 
 if __name__ == '__main__':
 	app.run(debug=True)
-
-# strin = 'O'
-# output = periodic_app(strin)
-# print(output)
