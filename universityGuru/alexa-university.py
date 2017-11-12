@@ -27,7 +27,7 @@ def university_app(university_name, place):
 	
 	for title in university_title_list:
 		university_name = title.get('name')
-		university_domain = title.get('domain')
+		university_domain = title.get('domains')
 		speech += 'The domain for {} is {}.'.format(university_name, university_domain)
 	return statement(speech)
 
